@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+/*Pequenas telas: até 600x
+Celular: de 600px até 768px
+Tablet: de 768px até 992px
+Desktop: de 992px até 1200px
+Grandes telas: Acima de 1200px */
+
+@media screen and (min-width: 768px) {
+    body {
+        background-image: url(imagens/prestadores001.png);
+        
+    }
+
+    header {
+        padding-top: 60px;
+    }
+
+    footer {
+        padding: 10px;
+    }
+ 
+    .titulo-3d-real {
+        font-size: 5em;
+    }
+    
+}
+
+@media (max-width: 768px) {
+    .titulo-3d-real {
+      font-size: 3rem;
+    }
+  }

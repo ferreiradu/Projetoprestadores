@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prestadores.Net</title>
+  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="mediaquery.css">
+</head>
+<body>
+  <header>
+    <h1 class="titulo-3d-real">Prestadores.Net</h1>
+
+  </header>
+  <div class="search-container">
+    <div class="label">Localização</div>
+    
+    <select id="estado" name="estado">
+      <option value="">Selecione o Estado</option>
+      <option value="AC">Acre</option>
+      <option value="AL">Alagoas</option>
+      <option value="AP">Amapá</option>
+      <option value="AM">Amazonas</option>
+      <option value="BA">Bahia</option>
+      <option value="CE">Ceará</option>
+      <option value="DF">Distrito Federal</option>
+      <option value="ES">Espírito Santo</option>
+      <option value="GO">Goiás</option>
+      <option value="MA">Maranhão</option>
+      <option value="MT">Mato Grosso</option>
+      <option value="MS">Mato Grosso do Sul</option>
+      <option value="MG">Minas Gerais</option>
+      <option value="PA">Pará</option>
+      <option value="PB">Paraíba</option>
+      <option value="PR">Paraná</option>
+      <option value="PE">Pernambuco</option>
+      <option value="PI">Piauí</option>
+      <option value="RJ">Rio de Janeiro</option>
+      <option value="RN">Rio Grande do Norte</option>
+      <option value="RS">Rio Grande do Sul</option>
+      <option value="RO">Rondônia</option>
+      <option value="RR">Roraima</option>
+      <option value="SC">Santa Catarina</option>
+      <option value="SP">São Paulo</option>
+      <option value="SE">Sergipe</option>
+      <option value="TO">Tocantins</option>
+    </select>
+
+    <select id="cidade" name="cidade" disabled>
+      <option value="">Selecione primeiro o estado</option>
+    </select>
+
+    <div class="label" style="margin-top: 20px;">Profissional</div>
+    
+    <select id="profissao" name="profissao">
+      <option value="">Escolha o Profissional</option>
+      <option value="montador">Montador de Móveis</option>
+      <option value="eletricista">Eletricista</option>
+      <option value="pedreiro">Pedreiro</option>
+      <option value="jardineiro">Jardineiro</option>
+      <option value="encanador">Encanador</option>
+    </select>
+
+    <!-- Botão de buscar -->
+    <button id="btnBuscar" type="button">Buscar </button>
+
+    <!-- Área para mostrar resultado (opcional) -->
+    <div id="resultado" style="margin-top: 20px; color: rgb(250, 250, 250);"></div>
+  </div>
+
+  <footer>
+    <p>O portal dos <span>melhores Prestadores</span> do Brasil</p>
+  </footer>
+
+  <script>
+    const selectEstado   = document.getElementById('estado');
+    const selectCidade   = document.getElementById('cidade');
+    const selectProfissao = document.getElementById('profissao');
+    const btnBuscar      = document.getElementById('btnBuscar');
+
+    // Função que verifica se todos os campos estão preenchidos
+    function verificarCampos() {
+      const estadoOk   = selectEstado.value !== '';
+      const cidadeOk   = selectCidade.value !== '' && !selectCidade.disabled;
+      const profissaoOk = selectProfissao.value !== '';
+
+      if (estadoOk && cidadeOk && profissaoOk) {
+        btnBuscar.classList.add('active');
+      } else {
+        btnBuscar.classList.remove('active');
+      }
+    }
+
+    // Carregamento das cidades (API IBGE)
+    selectEstado.addEventListener('change', function() {
+      const uf = this.value;
+      
+      selectCidade.innerHTML = '<option value="">Carregando cidades...</option>';
+      selectCidade.disabled = false;
+
+      if (!uf) {
+        selectCidade.innerHTML = '<option value="">Selecione primeiro o estado</option>';
+        selectCidade.disabled = true;
+        selectCidade.value = '';
+        verificarCampos();
+        return;
+      }
+
+      fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
+        .then(response => response.json())
+        .then(cidades => {
+          selectCidade.innerHTML = '<option value="">Selecione a cidade</option>';
+          cidades
+            .sort((a, b) => a.nome.localeCompare(b.nome))
+            .forEach(cidade => {
+              const option = document.createElement('option');
+              option.value = cidade.nome;
+              option.textContent = cidade.nome;
+              selectCidade.appendChild(option);
+            });
+          verificarCampos();
+        })
+        .catch(error => {
+          console.error('Erro ao carregar cidades:', error);
+          selectCidade.innerHTML = '<option value="">Erro ao carregar</option>';
+          verificarCampos();
+        });
+    });
+
+    // Escuta mudanças em todos os selects
+    selectCidade.addEventListener('change', verificarCampos);
+    selectProfissao.addEventListener('change', verificarCampos);
+
+    // Ação do botão buscar (exemplo)
+    
+    btnBuscar.addEventListener('click', function () {
+  if (!this.classList.contains('active')) return;
+
+  const estado    = selectEstado.value;
+  const cidade    = selectCidade.value;
+  const profissao = selectProfissao.value;
+
+  if (
+    estado === 'PR' &&
+    profissao === 'montador' &&
+    (cidade === 'Maringá' || cidade === 'Sarandi' || cidade === 'Marialva' || cidade === 'Paiçandu' || cidade === 'Floriano' || cidade === 'Iguatemi' || cidade === 'Mandaguaçu'))
+  
+   {
+    window.location.href = 'http://localhost/meusite/projeto-prestadores/prestadores/perfil/index.php'
+;
+
+
+  } else {
+    alert('Ainda não temos prestadores na sua região');
+  }
+
+  
+
+  
+  
+
+    
+
+
+    // Verifica inicialmente (caso alguém venha com valores pré-preenchidos)
+    verificarCampos();
+     });
+  </script>
+
+</body>
+</html>

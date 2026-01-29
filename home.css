@@ -1,0 +1,270 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;           /* impede scroll horizontal */
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  
+  background-image: 
+    
+  url(imagens/prestador002.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #f1f5f9;
+}
+
+main {
+  flex: 1;
+}
+
+/* ===================== HEADER ===================== */
+header {
+ padding-top: 80px;
+  text-align: center;
+ 
+}
+
+.titulo-3d-real {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -1.2px;
+  line-height: 0.95;
+ 
+
+
+  background: linear-gradient(
+  110deg,
+  #0e0d0d 0%,
+  #1e40af 35%,
+  #ffffff 50%,
+  #60a5fa 65%,
+  #1e40af 80%,
+  #070707 100%
+);
+
+  background-size: 200% 100%;
+  animation: brilhoTexto 2.8s linear infinite;
+
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  text-shadow: 
+    0 2px 1px #3450eee6,
+    0 4px 2px #000000cc,
+    0 8px 15px #070707e6,
+    0 12px 25px #3450ee00;
+    
+  transform: perspective(900px) rotateX(deg);
+  transform-origin: top center;
+}
+
+
+
+/* brilho deslizando dentro das letras */
+@keyframes brilhoTexto {
+  
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+
+
+/* ===================== CONTAINER DE BUSCA ===================== */
+.search-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  width: 80%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: clamp(1rem, 5vw, 2rem) 1.2rem 2rem;
+}
+
+/* Labels */
+.label {
+  font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+  font-weight: 800;
+  color: #e2e8f0;
+  margin: 1.4rem 0 0.6rem;
+  text-shadow: 2px 3px 3px #000000cc;
+  align-self: flex-start;
+  
+}
+
+/* Selects */
+select {
+  width: 100%;
+  max-width: 100%;
+  padding: 14px 16px 14px 18px;
+  font-size: 1.05rem;
+  border: 2px solid #64748b;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.89);
+  color: #000000;
+  appearance: none;
+  
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23334155' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.1em;
+  
+  transition: all 0.25s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35);
+}
+
+select:disabled {
+  background-color: rgba(100, 116, 139, 0.233);
+  color: #ffffffcb;
+  cursor: not-allowed;
+}
+
+/* Botão Buscar */
+#btnBuscar {
+  width: 100%;
+  max-width: 100%;
+  padding: 16px;
+  margin-top: 2.2rem;
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px -2px rgba(37, 99, 235, 0.35);
+  
+  opacity: 0.5;
+  pointer-events: none;
+  transition: all 0.28s ease;
+}
+
+#btnBuscar.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px -4px rgba(37, 99, 235, 0.5);
+}
+
+#btnBuscar:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
+  transform: translateY(-5px);
+}
+
+/* ===================== FOOTER ===================== */
+footer {
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.70);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+}
+
+footer p {
+  font-size: clamp(0.95rem, 3vw, 1.15rem);
+  font-weight: 500;
+  color: #cbd5e1;
+  text-shadow: 0 1px 3px #000000aa;
+}
+
+footer p span {
+  color: #60a5fa;
+  font-weight: 700;
+}
+ 
+
+  
+  .search-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+
+.resultados-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+}
+
+.lista-prestadores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.8rem;
+  margin-top: 2rem;
+}
+
+.card-prestador {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.45);
+  transition: transform 0.3s ease;
+}
+
+.card-prestador:hover {
+  transform: translateY(-8px);
+}
+
+.card-prestador img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #3b82f6;
+  margin-bottom: 1rem;
+}
+
+.profissao {
+  color: #60a5fa;
+  font-weight: 600;
+  margin: 0.4rem 0;
+}
+
+.avaliacao {
+  color: #fbbf24;
+  font-size: 1.3rem;
+  margin: 0.8rem 0;
+}
+
+.btn-ver-perfil {
+  display: inline-block;
+  padding: 0.9rem 1.6rem;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: all 0.3s;
+}
+
+.btn-ver-perfil:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
+  transform: translateY(-2px);
+}
